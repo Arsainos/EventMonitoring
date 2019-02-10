@@ -9,14 +9,14 @@ namespace EventMonitoring.Utlity
 {
     class QueueUtils
     {
-        private Dictionary<string, Queue> queuePool = new Dictionary<string, Queue>();
+        private Dictionary<string, SyncQueue> queuePool = new Dictionary<string, SyncQueue>();
 
-        public void setQueuePool(string key)
+        public void setQueuePool(string key, object lockObject)
         {
-            queuePool.Add(key, new Queue());
+            queuePool.Add(key, new SyncQueue(lockObject));
         }
 
-        public Queue getQueueFromPool(string key)
+        public SyncQueue getQueueFromPool(string key)
         {
             try
             {
